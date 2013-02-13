@@ -9,9 +9,11 @@
 
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		
 		<spring.version>3.1.2.RELEASE</spring.version>
 		<jboss.version>2.2.20.GA</jboss.version>
 		<junit.version>4.11</junit.version>
+		<jackson.version>1.9.12</jackson.version>
 
 		<mvnCompiler.version>3.0</mvnCompiler.version>
 		<mvnSource.version>1.7</mvnSource.version>
@@ -20,6 +22,15 @@
 	</properties>
 
 	<dependencies>
+
+		<!-- JBoss Common classes -->
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-core-asl</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
+
+
 
 		<!-- JBoss Common classes -->
 		<dependency>
