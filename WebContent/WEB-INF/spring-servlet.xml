@@ -12,7 +12,20 @@
  
 	<context:component-scan base-package="com.blmstrm.controller" />
  
+ <mvc:resources mapping="/resources/**" location="/resources/" />
+ 
 	<mvc:annotation-driven />
+
+<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="order" value="1" />
+		<property name="prefix">
+			<value>/WEB-INF/jsp/</value>
+		</property>
+		<property name="suffix">
+			<value>.jsp</value>
+		</property>
+	</bean>
+
  
 </beans>
 
