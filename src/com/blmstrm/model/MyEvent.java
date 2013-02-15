@@ -1,40 +1,41 @@
 package com.blmstrm.model;
 
-import java.text.ParseException;
+
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
+import java.util.Calendar;
+
 
 public class MyEvent {
-	private int id;
-	private String title;
-	private Date start;
-	private Date end;
-	
-	public MyEvent(){
-		SimpleDateFormat mySpdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ",Locale.ENGLISH);
-		this.id = 1;
-		this.title = "Meeting";
-		try {
-			this.start = mySpdf.parse("2013-02-14T20:57:56.235-0700");
-			this.end = mySpdf.parse("2013-02-14T21:57:56.235-0700");
-		} catch (ParseException e) {
-			System.err.println("Caught ParserException while parsing dates.");
-			e.printStackTrace();
-		}
 
+	private String title;
+	private String start;
+	private String end;
+	private boolean allDay = false;
+
+
+	public MyEvent(){
+		SimpleDateFormat mySpdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+		Calendar calendar = Calendar.getInstance();
+		this.title = "Meeting";
+		this.start = mySpdf.format(calendar.getTime());
+		calendar.add(Calendar.HOUR_OF_DAY,3);
+		this.end = mySpdf.format(calendar.getTime());
 	}
-	public int getId() {
-		return id;
-	}
+
 	public String getTitle() {
 		return title;
 	}
-	public Date getStart() {
+	public String getStart() {
 		return start;
 	}
-	public Date getEnd() {
+
+	public boolean isAllDay() {
+		return allDay;
+	}
+
+	public String getEnd() {
 		return end;
 	}
+	
 
 }

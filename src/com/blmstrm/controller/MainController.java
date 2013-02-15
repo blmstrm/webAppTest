@@ -16,11 +16,11 @@ public class MainController {
 	
 	@RequestMapping(value="/",  method = RequestMethod.GET)
 	public ModelAndView index(){
-		return new ModelAndView("calendar");
+		return new ModelAndView("index");
 	}
 	
 	@RequestMapping(value="/getEvent", method = RequestMethod.GET)
 	public @ResponseBody MyEvent getEvent() {
-		return new MyEvent();
+		return  new MyEvent();
 	}
 }
