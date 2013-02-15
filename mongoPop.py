@@ -9,6 +9,7 @@ import pymongo
 MONGO_HOST = "localhost"
 MONGO_PORT = 27017
 
+#Data configuration
 NR_OF_ENTRIES = 200
 MEETING_COUNTER = 0
 THIS_MOMENT = datetime.datetime.now()
@@ -49,15 +50,17 @@ def printError(ErrorType):
 if __name__ == "__main__":
 	
 	#Connect to mongoDB
-	mngConnection = pymongo.Connection(MONGO_HOST,MONGO_PORT)
-	mdb = mngConnection.events
+	try:
+		mngConnection = pymongo.Connection(MONGO_HOST,MONGO_PORT)
+		mdb = mngConnection.events
 
-	#Generate new event object and dump json in mongoDB NR_OF_ENTRIES times
-	repeat(createInsert,NR_OF_ENTRIES)
+		#Generate new event object and dump json in mongoDB NR_OF_ENTRIES times
+		repeat(createInsert,NR_OF_ENTRIES)
 	
-	#Disconnect to mongoDB
-	mngConnection.close()
-
+		#Disconnect to mongoDB
+		mngConnection.close()
+	except:
+		printError("NO_CONNECTION_TO_MONGO")
 
 
 
