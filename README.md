@@ -8,6 +8,6 @@ TODO
 ==========
 * Add MongoDB support
 * Use backbone.js for clear mvc partition in javascript
-* Encapsule the whole thing is something of a plugin
+* Encapsule the whole thing in something of a plugin
 	
 
