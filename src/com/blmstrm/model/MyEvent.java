@@ -4,7 +4,6 @@ package com.blmstrm.model;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-
 public class MyEvent {
 
 	private String title;

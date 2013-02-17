@@ -24,6 +24,14 @@
 	</properties>
 
 	<dependencies>
+					<!--spring-data-mongoDB -->
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-mongodb</artifactId>
+			<version>1.1.1.RELEASE</version>
+		</dependency>
+
+
 					<!-- mongoDB-java-driver -->
 		<dependency>
 			<groupId>org.mongodb</groupId>
