@@ -10,7 +10,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.blmstrm.model.MyEvent;
 
-
 @Controller
 public class MainController {
 	

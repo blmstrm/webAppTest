@@ -1,9 +1,5 @@
 package com.blmstrm.model;
 
-
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -20,18 +16,21 @@ public class MyEvent {
 	private boolean allDay = false;
 
 	//TODO Instantiate with attributes
-	public MyEvent(){
-		SimpleDateFormat mySpdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-		Calendar calendar = Calendar.getInstance();
-		this.title = "Meeting";
-		this.start = mySpdf.format(calendar.getTime());
-		calendar.add(Calendar.HOUR_OF_DAY,3);
-		this.end = mySpdf.format(calendar.getTime());
+	public MyEvent(String ... args){
+		//Generate id at creation or get from mongoDB somehow
+		this.id= 0 ;
+		this.title = args[0];
+		this.start = args[1];
+		this.end = args[2];
+		if(args[3].equals("true")){
+			this.allDay = true;
+		}
 	}
 
 	public String getTitle() {
 		return title;
 	}
+
 	public String getStart() {
 		return start;
 	}
@@ -44,5 +43,8 @@ public class MyEvent {
 		return end;
 	}
 
+	public int getId(){
+		return id;
+	}
 
 }
