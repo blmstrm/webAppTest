@@ -4,14 +4,22 @@ package com.blmstrm.model;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document
 public class MyEvent {
 
+	@Id
+	private int id;
+
+	//TODO Add event attributes
 	private String title;
 	private String start;
 	private String end;
 	private boolean allDay = false;
 
-
+	//TODO Instantiate with attributes
 	public MyEvent(){
 		SimpleDateFormat mySpdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 		Calendar calendar = Calendar.getInstance();
@@ -35,6 +43,6 @@ public class MyEvent {
 	public String getEnd() {
 		return end;
 	}
-	
+
 
 }
