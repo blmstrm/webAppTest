@@ -18,7 +18,7 @@
   <!-- Define the MongoTemplate which handles connectivity with MongoDB -->
   <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
     <constructor-arg name="mongo" ref="mongo"/>
-    <constructor-arg name="databaseName" value="demo"/>
+    <constructor-arg name="databaseName" value="events"/>
   </bean>
 
   <!-- Factory bean that creates the Mongo instance -->

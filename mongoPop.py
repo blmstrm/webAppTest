@@ -23,9 +23,10 @@ class Event():
 		global	EVENT_ID
 
 		self.id = EVENT_ID
+		self.title = "Meeting " + str(MEETING_COUNTER)
 		self.start = str(THIS_MOMENT)
 		self.end = str(THIS_MOMENT + datetime.timedelta(hours=1))
-		self.title = "Meeting " + str(MEETING_COUNTER)
+		self.allDay = true	
 
 		EVENT_ID += 1
 		MEETING_COUNTER += 1
@@ -52,7 +53,7 @@ if __name__ == "__main__":
 	#Connect to mongoDB
 	try:
 		mngConnection = pymongo.Connection(MONGO_HOST,MONGO_PORT)
-		mdb = mngConnection.events
+		mdb = mngConnection.test
 
 		#Generate new event object and dump json in mongoDB NR_OF_ENTRIES times
 		repeat(createInsert,NR_OF_ENTRIES)
