@@ -16,15 +16,14 @@ public class MyEvent {
 	private boolean allDay = false;
 
 	//TODO Instantiate with attributes
-	public MyEvent(String ... args){
-		//Generate id at creation or get from mongoDB somehow
-		this.id= 0 ;
-		this.title = args[0];
-		this.start = args[1];
-		this.end = args[2];
-		if(args[3].equals("true")){
-			this.allDay = true;
-		}
+	public MyEvent(int id, String title, String start, String end, boolean allDay){
+		
+		this.id = id;
+		this.title = title;
+		this.start = start;
+		this.end = end;
+		this.allDay = allDay;
+		
 	}
 
 	public String getTitle() {
@@ -46,5 +45,10 @@ public class MyEvent {
 	public int getId(){
 		return id;
 	}
-
+	
+	@Override
+	public String toString(){
+		return "Event [Title="+title+", start="+start+", end="+end+", isAlldDay="+allDay+", id="+id+"]";
+		
+	}
 }

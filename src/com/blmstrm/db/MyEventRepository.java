@@ -12,26 +12,26 @@ import com.blmstrm.model.MyEvent;
 public class MyEventRepository {
 
 	@Autowired
-	MongoTemplate mngTemplate;
+	MongoTemplate mongoTemplate;
 	
-	public void addEvent(){
-		MyEvent newEvent = new MyEvent();
-		mngTemplate.insert(newEvent);
+	public void addEvent(int id, String title, String start, String end, boolean allDay){
+		MyEvent newEvent = new MyEvent(id,title,start,end,allDay);
+		mongoTemplate.insert(newEvent);
 	}
 	
 	public List<MyEvent> getAllEvents(){
-		return mngTemplate.findAll(MyEvent.class);
+		return mongoTemplate.findAll(MyEvent.class);
 	}
 		
 	public void createEventCollection(){
-		if(mngTemplate.collectionExists(MyEvent.class)){
-			mngTemplate.createCollection(MyEvent.class);
+		if(!mongoTemplate.collectionExists(MyEvent.class)){
+			mongoTemplate.createCollection(MyEvent.class);
 		}
 	}
 	
 	public void dropEventCollection(){
-		if(mngTemplate.collectionExists(MyEvent.class)){
-			mngTemplate.dropCollection(MyEvent.class);
+		if(mongoTemplate.collectionExists(MyEvent.class)){
+			mongoTemplate.dropCollection(MyEvent.class);
 		}
 	}
 	

@@ -23,13 +23,19 @@ public class MainController {
 	
 	@RequestMapping(value="/getAllEvents", method = RequestMethod.GET)
 	public @ResponseBody List <MyEvent> getAllEvents() {
+						
+		ConfigurableApplicationContext context = new ClassPathXmlApplicationContext("MongoConfig.xml");
+
+		MyEventRepository eventRepository = (MyEventRepository)context.getBean(MyEventRepository.class);
 		
-		ConfigurableApplicationContext context = new ClassPathXmlApplicationContext();
-		
-		MyEventRepository eventRepository = context.getBean(MyEventRepository.class);
+		eventRepository.dropEventCollection();
 		
 		eventRepository.createEventCollection();
-				
+		
+		//Insert one temporary event
+		eventRepository.addEvent(0,"Meeting","Start","End",true);
+		
+		//Return all events
 		return  eventRepository.getAllEvents();
 	}
 }
