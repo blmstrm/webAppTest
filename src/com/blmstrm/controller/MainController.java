@@ -37,6 +37,9 @@ public class MainController {
 		return eventRepository.addEvent(newEvent);
 	}
 
+	//TODO Update event
+	//TODO Remove event
+	
 	/*Fetch events from database through HTTP.GET*/
 	@RequestMapping(value="/events", method = RequestMethod.GET)
 	public @ResponseBody List<MyEvent> getAllEvents(){
