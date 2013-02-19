@@ -4,7 +4,10 @@ import java.util.List;
 
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,64 +25,30 @@ public class MainController {
 		return new ModelAndView("index");
 	}
 
-	/*URL example - addEvent?title=title&allDay=true&start=1&end=10*/
-	@RequestMapping(value="/addEvent", method = RequestMethod.GET)
-	public @ResponseBody void addEvent(@RequestParam(value="title",	required=true) String title,
-										@RequestParam(value="allDay",required=false) boolean allDay,
-										@RequestParam(value="start", required=true) Long start,
-										@RequestParam(value="end",required=false)Long end){
-		
-		ConfigurableApplicationContext context = new ClassPathXmlApplicationContext("MongoConfig.xml");
-
-		MyEventRepository eventRepository = (MyEventRepository)context.getBean(MyEventRepository.class);
-		
-		eventRepository.createEventCollection();
-		
-		if(end == null){
-			end=0L;
-		}
-	
-		System.out.println("End:"+end);
-		
-		/*TODO - What can go wrong? Handle eventual error.*/
-		eventRepository.addEvent(title, start, end, allDay);
-			
-	}
-	
-	@RequestMapping(value="/getEvents", method = RequestMethod.GET)
-	public @ResponseBody List <MyEvent> getEvents(@RequestParam(value="start",required=true) Long start,
-													@RequestParam(value="end",required=false) Long end) {
+	/*POST to add URL*/
+	@RequestMapping(value="/events",  method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+	@ResponseBody
+	public MyEvent addEvent(@RequestBody MyEvent newEvent){
 
 		ConfigurableApplicationContext context = new ClassPathXmlApplicationContext("MongoConfig.xml");
 
 		MyEventRepository eventRepository = (MyEventRepository)context.getBean(MyEventRepository.class);
-		
+
 		eventRepository.createEventCollection();
-	
-		return eventRepository.getEvents(start,end);
+
+		return eventRepository.addEvent(newEvent);
 	}
 
-	@RequestMapping(value="/getAllEvents", method = RequestMethod.GET)
+	@RequestMapping(value="/events", method = RequestMethod.GET)
 	public @ResponseBody List<MyEvent> getAllEvents(){
-		
+
 		ConfigurableApplicationContext context = new ClassPathXmlApplicationContext("MongoConfig.xml");
 
 		MyEventRepository eventRepository = (MyEventRepository)context.getBean(MyEventRepository.class);
 
 		return eventRepository.getAllEvents();
-		
-	}
-	
-	@RequestMapping(value="/clearMongo", method = RequestMethod.GET)
-	public @ResponseBody void clearMongo(){
-		
-		ConfigurableApplicationContext context = new ClassPathXmlApplicationContext("MongoConfig.xml");
 
-		MyEventRepository eventRepository = (MyEventRepository)context.getBean(MyEventRepository.class);
-
-		eventRepository.dropEventCollection();
-		
 	}
-	
+
 }
 

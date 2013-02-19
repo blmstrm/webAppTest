@@ -16,23 +16,11 @@ public class MyEventRepository {
 	@Autowired
 	MongoTemplate mongoTemplate;
 
-	public void addEvent(String title, long start, long end, boolean allDay){
-		
-		MyEvent newEvent = new MyEvent(0,title,start,end,allDay);
-		 mongoTemplate.insert(newEvent);
-	}
+	public MyEvent addEvent(MyEvent newEvent){
 
-	public void addEvents(int id, String title, Long start, Long end, boolean allDay){
-	
-		long tmpStart = 0;
-		long tmpEnd = 50;
-		for(int i=0;i<200;i++){
-			MyEvent newEvent = new MyEvent(i,title,tmpStart,tmpEnd,allDay);
-			mongoTemplate.insert(newEvent);
-			tmpStart++;
-			tmpEnd++;
-		}
-		
+		mongoTemplate.insert(newEvent);
+
+		return newEvent;
 	}
 
 	public List<MyEvent> getEvents(Long start, Long end){

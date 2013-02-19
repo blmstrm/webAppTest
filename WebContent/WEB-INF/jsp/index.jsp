@@ -6,5 +6,14 @@
 <%@include file="head.jsp"%>
 <body>
 	<div id='calendar'></div>
+	<div id='eventDialog' class='dialog ui-helper-hidden'>
+		<form>
+			<div>
+					<label>Title:</label>
+					<input id='title' class="field" type="text"></input>
+			</div>
+		</form>
+	</div>
+	
 </body>
 </html>
