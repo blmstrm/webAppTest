@@ -4,13 +4,10 @@ import java.util.List;
 
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -20,12 +17,13 @@ import com.blmstrm.model.MyEvent;
 @Controller
 public class MainController {
 
+	/*Return calendar view*/
 	@RequestMapping(value="/",  method = RequestMethod.GET)
 	public ModelAndView index(){
 		return new ModelAndView("index");
 	}
 
-	/*POST to add URL*/
+	/*Add events to database through HTTP.POST*/
 	@RequestMapping(value="/events",  method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
 	@ResponseBody
 	public MyEvent addEvent(@RequestBody MyEvent newEvent){
@@ -39,6 +37,7 @@ public class MainController {
 		return eventRepository.addEvent(newEvent);
 	}
 
+	/*Fetch events from database through HTTP.GET*/
 	@RequestMapping(value="/events", method = RequestMethod.GET)
 	public @ResponseBody List<MyEvent> getAllEvents(){
 
