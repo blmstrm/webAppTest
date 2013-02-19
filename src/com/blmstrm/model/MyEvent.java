@@ -8,6 +8,7 @@ public class MyEvent {
 	private String title;
 	private String start;
 	private String end;
+	public long id;
 
 	public MyEvent(String title, String start, String end){
 		this.title = title;
