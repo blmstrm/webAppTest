@@ -52,7 +52,7 @@ public class MainController {
 	}
 	
 	//TODO Remove event
-	/*Update event in database through HTTP.PUT*/
+	/*Update event in database through HTTP.DELETE*/
 	@RequestMapping(value="/event",  method = RequestMethod.DELETE, consumes = "application/json", produces = "application/json")
 	@ResponseBody
 	public void removeEvent(@RequestBody MyEvent currentEvent){
