@@ -42,10 +42,14 @@ public class MainController{
 		//Update event
 		return new MyEvent("Test", "1");
 	}
-	
+
 	//TODO Remove event
 	/*Update event in database through HTTP.DELETE*/
+<<<<<<< HEAD
 	@RequestMapping(value="/events",  method = RequestMethod.DELETE, headers="application/json")
+=======
+	@RequestMapping(value="/event",  method = RequestMethod.DELETE, consumes = "application/json", produces = "application/json")
+>>>>>>> c0f6e72eaf89e479b41b0586f72a92dc29fccb44
 	@ResponseBody
 	public void removeEvent(@RequestBody MyEvent currentEvent){
 		System.out.println("LOG:Removed event!");
