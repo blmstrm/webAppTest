@@ -1,0 +1,123 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>webAppTest</groupId>
+	<artifactId>webAppTest</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
+	<properties>
+
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		
+		<spring.version>3.1.2.RELEASE</spring.version>
+		<jboss.version>2.2.20.GA</jboss.version>
+		<junit.version>4.11</junit.version>
+		<jackson.version>1.9.12</jackson.version>
+		<mongoDB.version>2.10.1</mongoDB.version>
+
+		<mvnCompiler.version>3.0</mvnCompiler.version>
+		<mvnSource.version>1.7</mvnSource.version>
+		<mvnTarget.version>1.7</mvnTarget.version>
+	
+
+	</properties>
+
+	<dependencies>
+
+					<!-- cglib reopsitory -->
+		<dependency>
+			<groupId>cglib</groupId>
+			<artifactId>cglib</artifactId>
+			<version>2.2.2</version>
+		</dependency>
+
+
+
+					<!--spring-data-mongoDB -->
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-mongodb</artifactId>
+			<version>1.1.1.RELEASE</version>
+		</dependency>
+
+
+					<!-- mongoDB-java-driver -->
+		<dependency>
+			<groupId>org.mongodb</groupId>
+			<artifactId>mongo-java-driver</artifactId>
+			<version>${mongoDB.version}</version>
+		</dependency>
+
+
+					<!-- Jackson-mapper-asl -->
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
+
+	<!-- Jackson-core-asl -->
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-core-asl</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
+
+
+		<!-- JBoss Common classes -->
+		<dependency>
+		<groupId>org.jboss</groupId>
+		<artifactId>jboss-common-core</artifactId>
+		<version>${jboss.version}</version>
+		</dependency>
+
+		<!-- Spring Framework -->
+		<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-context</artifactId>
+		<version>${spring.version}</version>
+		</dependency>
+		<!-- Spring Web Framework -->
+		<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-web</artifactId>
+		<version>${spring.version}</version>
+		</dependency>
+		<!-- Spring mvc Web Framework -->
+		<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-webmvc</artifactId>
+		<version>${spring.version}</version>
+		</dependency>
+
+		<!-- JUnit 4.11 -->
+		<dependency>
+		<groupId>junit</groupId>
+		<artifactId>junit</artifactId>
+		<version>${junit.version}</version>
+		</dependency>
+
+		</dependencies>
+		<build>
+		<sourceDirectory>src</sourceDirectory>
+		<plugins>
+		<plugin>
+		<artifactId>maven-compiler-plugin</artifactId>
+		<version>${mvnCompiler.version}</version>
+		<configuration>
+		<source>${mvnSource.version}</source>
+		<target>${mvnTarget.version}</target>
+		</configuration>
+		</plugin>
+		<plugin>
+		<artifactId>maven-war-plugin</artifactId>
+		<version>2.2</version>
+		<configuration>
+		<warSourceDirectory>WebContent</warSourceDirectory>
+		<failOnMissingWebXml>false</failOnMissingWebXml>
+		</configuration>
+		</plugin>
+		</plugins>
+		</build>
+		</project>
