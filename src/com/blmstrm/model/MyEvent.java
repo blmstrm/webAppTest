@@ -7,13 +7,10 @@ public class MyEvent {
 
 	private String title;
 	private String start;
-	private String end;
-	public long id;
 
-	public MyEvent(String title, String start, String end){
+	public MyEvent(String title, String start){
 		this.title = title;
 		this.start = start;
-		this.end = end;
 	}
 
 	public String getTitle() {
@@ -31,13 +28,5 @@ public class MyEvent {
 	public void setStart(String start) {
 		this.start = start;
 	}
-
-	public String getEnd() {
-		return end;
-	}
-
-	public void setEnd(String end) {
-		this.end = end;
-	}
-
+	
 }

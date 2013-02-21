@@ -2,8 +2,8 @@ package com.blmstrm.controller;
 
 import java.util.List;
 
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,8 +16,11 @@ import com.blmstrm.db.MyEventRepository;
 import com.blmstrm.model.MyEvent;
 
 @Controller
-public class MainController {
-
+public class MainController{
+	
+	@Autowired
+	MyEventRepository eventRepository;
+	
 	/*Return calendar view*/
 	@RequestMapping(value="/",  method = RequestMethod.GET)
 	public ModelAndView index(){
@@ -25,60 +28,44 @@ public class MainController {
 	}
 
 	/*Add event to database through HTTP.POST*/
-	@RequestMapping(value="/event",  method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+	@RequestMapping(value="/events",  method = RequestMethod.POST, headers="application/json")
 	@ResponseBody
 	public MyEvent addEvent(@RequestBody MyEvent newEvent){
-
-		ConfigurableApplicationContext context = new ClassPathXmlApplicationContext("MongoConfig.xml");
-
-		MyEventRepository eventRepository = (MyEventRepository)context.getBean(MyEventRepository.class);
-
-		eventRepository.createEventCollection();
-
-		return eventRepository.addEvent(newEvent);
+		//Add event
+		return new MyEvent("Test", "1");
 	}
 
 	/*Update event in database through HTTP.PUT*/
-	@RequestMapping(value="/event",  method = RequestMethod.PUT, consumes = "application/json", produces = "application/json")
+	@RequestMapping(value="/events",  method = RequestMethod.PUT, headers="application/json")
 	@ResponseBody
 	public MyEvent updateEvent(@RequestBody MyEvent currentEvent){
-
-		ConfigurableApplicationContext context = new ClassPathXmlApplicationContext("MongoConfig.xml");
-
-		MyEventRepository eventRepository = (MyEventRepository)context.getBean(MyEventRepository.class);
-		
-		return eventRepository.updateEvent(currentEvent);
-		
+		//Update event
+		return new MyEvent("Test", "1");
 	}
-	
+
 	//TODO Remove event
-	/*Update event in database through HTTP.PUT*/
-	@RequestMapping(value="/event",  method = RequestMethod.DELETE, consumes = "application/json", produces = "application/json")
+	/*Update event in database through HTTP.DELETE*/
+	@RequestMapping(value="/events",  method = RequestMethod.DELETE, headers="application/json")
 	@ResponseBody
 	public void removeEvent(@RequestBody MyEvent currentEvent){
-
-		ConfigurableApplicationContext context = new ClassPathXmlApplicationContext("MongoConfig.xml");
-
-		MyEventRepository eventRepository = (MyEventRepository)context.getBean(MyEventRepository.class);
-		
-		eventRepository.removeEvent(currentEvent);
-		
+		System.out.println("LOG:Removed event!");
 	}
-	
-	
-	/*Fetch events from database through HTTP.GET, optionally from date to date.*/
-	@RequestMapping(value="/events/{start}/{end}", method = RequestMethod.GET, produces = "application/json")
+
+	/*Fetch all events from database*/
+	@RequestMapping(value="/events", method = RequestMethod.GET)
 	@ResponseBody
-	public List<MyEvent> getAllEvents(@PathVariable String start, @PathVariable String end){
-
-		ConfigurableApplicationContext context = new ClassPathXmlApplicationContext("MongoConfig.xml");
-
-		MyEventRepository eventRepository = (MyEventRepository)context.getBean(MyEventRepository.class);
-
-		//TODO Get events between different dates
+	public List<MyEvent> getAllEvents(){
 		return eventRepository.getAllEvents();
-
 	}
 
+	/*Fetch events from database through HTTP.GET, optionally from date to date.*/
+	@RequestMapping(value="/events/{start}/{end}", method = RequestMethod.GET)
+	@ResponseBody
+	public List<MyEvent> getEventsFromTo(@PathVariable String start, @PathVariable String end){
+		//TODO Get events between different dates
+	 	return eventRepository.getAllEvents();
+	}
+
+	
 }
 

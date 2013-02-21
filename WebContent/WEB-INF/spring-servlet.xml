@@ -28,21 +28,30 @@
 		</property>
 	</bean>
 
-	<!-- Define the MongoTemplate which handles connectivity with MongoDB -->
-	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
-		<constructor-arg name="mongo" ref="mongo" />
-		<constructor-arg name="databaseName" value="demo" />
+	<bean
+		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+		<property name="messageConverters">
+			<list>
+				<ref bean="jsonConverter" />
+			</list>
+		</property>
 	</bean>
 
-	<!-- Factory bean that creates the Mongo instance -->
+	<bean id="jsonConverter"
+		class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
+		<property name="supportedMediaTypes" value="application/json" />
+	</bean>
+
+	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+		<constructor-arg name="mongo" ref="mongo" />
+		<constructor-arg name="databaseName" value="events" />
+	</bean>
+
 	<bean id="mongo" class="org.springframework.data.mongodb.core.MongoFactoryBean">
 		<property name="host" value="localhost" />
 	</bean>
 
-	<!-- Use this post processor to translate any MongoExceptions thrown in 
-		@Repository annotated classes -->
-	<bean
-		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+	<bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
 
 
 </beans>

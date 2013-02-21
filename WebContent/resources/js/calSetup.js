@@ -37,7 +37,7 @@
 			select: function(startDate,endDate){
 				var eventView = new EventView();
 				eventView.collection = this.collection;
-				eventView.model = new Event({start: startDate,end: endDate});
+				eventView.model = new Event({start: startDate});
 				eventView.render();
 			}
 		});
