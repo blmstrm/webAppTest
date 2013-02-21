@@ -42,7 +42,7 @@ public class MainController{
 		//Update event
 		return new MyEvent("Test", "1");
 	}
-
+	
 	//TODO Remove event
 	/*Update event in database through HTTP.DELETE*/
 	@RequestMapping(value="/events",  method = RequestMethod.DELETE, headers="application/json")
@@ -58,6 +58,8 @@ public class MainController{
 		return eventRepository.getAllEvents();
 	}
 
+
+	
 	/*Fetch events from database through HTTP.GET, optionally from date to date.*/
 	@RequestMapping(value="/events/{start}/{end}", method = RequestMethod.GET)
 	@ResponseBody
