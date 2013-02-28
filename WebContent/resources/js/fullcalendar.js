@@ -42,6 +42,8 @@ var defaults = {
 	lazyFetching: true,
 	startParam: 'start',
 	endParam: 'end',
+	//BLMSTRM
+	beforeSend: function(hdr){hdr.setRequestHeader('Accept-language','sv-SE,sv;q=0.8');},
 	
 	// time formats
 	titleFormat: {
@@ -843,8 +845,13 @@ fc.sourceNormalizers = [];
 fc.sourceFetchers = [];
 
 var ajaxDefaults = {
+		//BLMSTRM: Added content encoding
+        // request.setRequestHeader(accept-language="sv-SE,sv;q=0.8,en-US;q=0.6,en;q=0.4");
 	dataType: 'json',
-	cache: false
+	cache: false,
+	beforeSend: function(hdr){
+		console.log('setting headers')
+		hdr.setRequestHeader('Accept-language','sv-SE,sv;q=0.8');}
 };
 
 var eventGUID = 1;
@@ -976,9 +983,10 @@ function EventManager(options, _sources) {
 					data[endParam] = Math.round(+rangeEnd / 1000);
 				}
 				pushLoading();
+				
 				$.ajax($.extend({}, ajaxDefaults, source, {
 					data: data,
-					success: function(events) {
+		    		success: function(events) {
 						events = events || [];
 						var res = applyAll(success, this, arguments);
 						if ($.isArray(res)) {

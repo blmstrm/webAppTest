@@ -32,16 +32,11 @@
 		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
 		<property name="messageConverters">
 			<list>
-				<ref bean="jsonConverter" />
+				<bean
+					class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter" />
 			</list>
 		</property>
 	</bean>
-
-	<bean id="jsonConverter"
-		class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
-		<property name="supportedMediaTypes" value="application/json" />
-	</bean>
-
 	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
 		<constructor-arg name="mongo" ref="mongo" />
 		<constructor-arg name="databaseName" value="events" />
@@ -51,7 +46,9 @@
 		<property name="host" value="localhost" />
 	</bean>
 
-	<bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+	<bean
+		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+
 
 
 </beans>

@@ -28,7 +28,7 @@ public class MainController{
 	}
 
 	/*Add event to database through HTTP.POST*/
-	@RequestMapping(value="/events",  method = RequestMethod.POST, headers="application/json")
+	@RequestMapping(value="/events",  method = RequestMethod.POST)
 	@ResponseBody
 	public MyEvent addEvent(@RequestBody MyEvent newEvent){
 		//Add event
@@ -36,7 +36,7 @@ public class MainController{
 	}
 
 	/*Update event in database through HTTP.PUT*/
-	@RequestMapping(value="/events",  method = RequestMethod.PUT, headers="application/json")
+	@RequestMapping(value="/events",  method = RequestMethod.PUT)
 	@ResponseBody
 	public MyEvent updateEvent(@RequestBody MyEvent currentEvent){
 		//Update event
@@ -45,7 +45,7 @@ public class MainController{
 	
 	//TODO Remove event
 	/*Update event in database through HTTP.DELETE*/
-	@RequestMapping(value="/events",  method = RequestMethod.DELETE, headers="application/json")
+	@RequestMapping(value="/events",  method = RequestMethod.DELETE)
 	@ResponseBody
 	public void removeEvent(@RequestBody MyEvent currentEvent){
 		System.out.println("LOG:Removed event!");
@@ -59,11 +59,11 @@ public class MainController{
 	}
 
 	/*Fetch events from database through HTTP.GET, optionally from date to date.*/
-	@RequestMapping(value="/events/{start}/{end}", method = RequestMethod.GET)
+	@RequestMapping(value="/events/{start}/{end}")
 	@ResponseBody
 	public List<MyEvent> getEventsFromTo(@PathVariable String start, @PathVariable String end){
 		//TODO Get events between different dates
-	 	return eventRepository.getAllEvents();
+		return eventRepository.getAllEvents();
 	}
 
 	
