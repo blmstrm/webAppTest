@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,7 +33,7 @@ public class MainController{
 	@ResponseBody
 	public MyEvent addEvent(@RequestBody MyEvent newEvent){
 		//Add event
-		return new MyEvent("Test", "1");
+		return new MyEvent();
 	}
 
 	/*Update event in database through HTTP.PUT*/
@@ -40,7 +41,8 @@ public class MainController{
 	@ResponseBody
 	public MyEvent updateEvent(@RequestBody MyEvent currentEvent){
 		//Update event
-		return new MyEvent("Test", "1");
+		currentEvent.setTitle("Updated");
+		return currentEvent;
 	}
 	
 	//TODO Remove event
