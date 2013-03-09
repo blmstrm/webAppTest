@@ -22,8 +22,24 @@
 	
 
 	</properties>
+<!-- morphia reopsitory -->
+<repositories>
+<repository>
+<id>morphia</id>
+<url>http://morphia.googlecode.com/svn/mavenrepo/</url>
+</repository>
+</repositories>
 
-	<dependencies>
+
+
+
+<!-- morphia reopsitory -->
+<dependencies>
+<dependency>
+<groupId>com.google.code.morphia</groupId>
+<artifactId>morphia</artifactId>
+<version>0.98</version>
+</dependency>
 
 					<!-- cglib reopsitory -->
 		<dependency>
