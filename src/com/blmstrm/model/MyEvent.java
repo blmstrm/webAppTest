@@ -1,8 +1,7 @@
 package com.blmstrm.model;
 
 import com.google.code.morphia.annotations.Entity;
-import com.google.code.morphia.annotations.Id;
-import com.google.code.morphia.emul.org.bson.types.ObjectId;
+
 
 @Entity
 public final class MyEvent {
