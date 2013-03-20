@@ -1,6 +1,7 @@
 package com.blmstrm.model;
 
 import com.google.code.morphia.annotations.Entity;
+import com.google.code.morphia.annotations.Id;
 
 
 @Entity
@@ -8,14 +9,14 @@ public final class MyEvent {
 	
 	private boolean allDay;
 	private String className;
-	private boolean editable;
+	private boolean editable = true;
 	private String end;
-	private String id;
+	@Id private String id;
 	private String start;
 	private String title;
 	private String url;
 
-	
+		
 	public String getId() {
 		return id;
 	}

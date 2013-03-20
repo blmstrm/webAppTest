@@ -31,7 +31,7 @@
 		<filter-name>httpMethodFilter</filter-name>
 		<servlet-name>spring</servlet-name>
 	</filter-mapping>
-
+	<!--
 	<security-constraint>
 		<web-resource-collection>
 			<web-resource-name>All Access</web-resource-name>
@@ -45,5 +45,6 @@
 			<transport-guarantee>NONE</transport-guarantee>
 		</user-data-constraint>
 	</security-constraint>
+	-->
 
 </web-app>
