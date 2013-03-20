@@ -48,10 +48,11 @@ public class MainController{
 
   /*Update event in database through HTTP.DELETE*/
   @RequestMapping(value="/events/{id}",  method = RequestMethod.DELETE)
-    @ResponseStatus(HttpStatus.OK)
-    public void removeEvent(@PathVariable String id){
+  @ResponseBody
+     public MyEvent removeEvent(@PathVariable String id){
 	  eventRepository.removeEvent(id);
-    }
+	  return new MyEvent();
+	}
 
   /*Fetch all events from database*/
   @RequestMapping(value="/events", method = RequestMethod.GET)
