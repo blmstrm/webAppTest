@@ -52,7 +52,6 @@ $(function(){
       change: function(event){
 	var fcEvent = $(this.el).fullCalendar('clientEvents',event.get('id'))[0];
 	fcEvent.title = event.get('title');
-	fcEvent.color= event.get('color');
 	$(this.el).fullCalendar('updateEvent',fcEvent);
       },
       eventDropOrResize: function(fcEvent){
@@ -84,8 +83,7 @@ $(function(){
       },
       open: function(){
 	this.$('#title').val(this.model.get('title'));
-	this.$('#color').val(this.model.get('color'));
-      },
+	  },
       save: function(){
 	this.model.set({'title':this.$('#title').val()});
 	if (this.model.isNew()){
@@ -102,15 +100,7 @@ $(function(){
       }
   });
 
-  $.ajaxSetup({
-    headers: {
-      'accept-language':'sv-SE,sv;q=0.8,en-US;q=0.6,en;q=0.4'
-    }
-  });
-
-  console.log('Writing to console');
   var events = new Events();
   new EventsView({el: $("#calendar"),collection: events}).render();
   events.fetch();
 });
-
