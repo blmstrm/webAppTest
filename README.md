@@ -9,7 +9,7 @@ TODO
 * ~~Add MongoDB support~~
 		~~Create @Repository class to use with mongoDb~~
 * ~~Use backbone.js for clear mvc partition in javascript~~
-* Change to RESTful API. AddEvent/UpdateEvent/DeleteEvent/GetAllEvents.
-* Encapsule the whole thing in something of a plugin. Slices?
+* ~~Change to RESTful API. AddEvent/UpdateEvent/DeleteEvent/GetAllEvents.~~
+* Encapsule the whole thing in something of a plugin.
 	
 
