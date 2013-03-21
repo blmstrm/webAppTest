@@ -105,7 +105,6 @@ $(function(){
 			return this;
 		},
 		open: function(){
-			$(this).parents('.ui-dialog-buttonpane button:eq(2)').focus();
 			this.$('#title').val(this.model.get('title'));
 		},
 		save: function(){
@@ -117,6 +116,7 @@ $(function(){
 			}
 		},
 		close: function(){
+			console.log('Closing');
 			$(this.el).dialog('close');
 		},
 		destroy: function(){
@@ -124,6 +124,8 @@ $(function(){
 		}
 	});
 
+	
+	
 	var events = new Events();
 	new EventsView({el: $("#calendar"),collection: events}).render();
 	events.fetch();
