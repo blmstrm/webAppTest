@@ -24,14 +24,37 @@ $(function(){
 					center: 'title',
 					right: 'month,agendaWeek,agendaDay'
 				},
-				selectable: true,
-				selectHelper: true,
-				editable: true,
-				ignoreTimezone: false,
-				select: this.select,
-				eventClick: this.eventClick,
-				eventDrop: this.eventDropOrResize,
-				eventResize: this.eventDropOrResize
+				axisFormat: 'H:mm{ - H:mm}',
+				timeFormat: 'H(:mm)',
+				firstDay:1,
+				weekNumbers:true,
+				dayNames: ['Söndag', 'Måndag', 'Tisdag', 'Onsdag',
+				           'Torsdag', 'Fredag', 'Lördag'],
+				           dayNamesShort:['Sön', 'Mån', 'Tis', 'Ons', 'Tor', 'Fre', 'Lör'],
+				           monthNames:['Januari', 'Februari', 'Mars', 'April', 'Maj', 'Juni', 'Juli',
+				                       'Augusti', 'September', 'Oktober', 'November', 'December'],
+				                       monthNamesShort:['Jan', 'Feb', 'Mar', 'Apr', 'Maj', 'Jun',
+				                                        'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dec'],
+				                                        buttonText:{
+				                                        	prev:     '&lsaquo;', // <
+				                                        	next:     '&rsaquo;', // >
+				                                        	prevYear: '&laquo;',  // <<
+				                                        	nextYear: '&raquo;',  // >>
+				                                        	today:    'Idag',
+				                                        	month:    'Månad',
+				                                        	week:     'Vecka',
+				                                        	day:      'Dag'
+				                                        },
+				                                        weekNumberTitle:"V",
+				                                        selectable: true,
+				                                        selectHelper: true,
+				                                        editable: true,
+				                                        ignoreTimezone: false,
+				                                        select: this.select,
+				                                        eventClick: this.eventClick,
+				                                        eventDrop: this.eventDropOrResize,
+				                                        eventResize: this.eventDropOrResize
+
 			});
 		},
 		addAll: function(){
@@ -82,6 +105,7 @@ $(function(){
 			return this;
 		},
 		open: function(){
+			$(this).parents('.ui-dialog-buttonpane button:eq(2)').focus();
 			this.$('#title').val(this.model.get('title'));
 		},
 		save: function(){

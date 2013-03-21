@@ -12,6 +12,15 @@
 					<label>Title:</label>
 					<input id='title' class="field" type="text"></input>
 			</div>
+			<div>
+					<label>From:</label>
+					<input id='from' class="field" type="text"></input>
+			</div>
+			<div>
+					<label>To:</label>
+					<input id='to' class="field" type="text"></input>
+			</div>
+			<label><input type="checkbox" id="allDay" />Allday?</label>
 		</form>
 	</div>
 	
