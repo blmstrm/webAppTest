@@ -122,19 +122,23 @@ $(function(){
 					this.$('#to').attr('disabled',false);
 				}
 			}
-			
+
 			var buttons = {'Ok': this.save};
 			if(!this.model.isNew()){
 				_.extend(buttons, {'Delete':this.destroy});
 				var startDate = $.fullCalendar.parseDate(this.model.get('start'));
 				var endDate = $.fullCalendar.parseDate(this.model.get('end'));
-				
+
 				this.$('#from').val(
 						$.fullCalendar.formatDate(startDate,'HH:mm'));
 				this.$('#to').val(
 						$.fullCalendar.formatDate(endDate,'HH:mm'));
-				}
+			}else{
+				this.$('#from').val('');
+				this.$('#to').val('');
+			}
 			_.extend(buttons, {'Cancel':this.close});
+
 			$(this.el).dialog({
 				modal: true,
 				title: (this.model.isNew() ? 'New': 'Edit')+' Event',
@@ -153,6 +157,19 @@ $(function(){
 				this.model.set({'allDay':false});
 			}
 			this.model.set({'title':this.$('#title').val()});
+
+			var sDate = new Date(this.model.get('start'));
+			var eDate = new Date(this.model.get('end'));
+
+			var splitStart = this.$('#from').val().split(':');
+			var splitEnd = this.$('#to').val().split(':');
+
+			sDate.setHours(splitStart[0],splitStart[1]);
+			eDate.setHours(splitEnd[0],splitEnd[1]);
+
+			this.model.set({'start':sDate});
+			this.model.set({'end':eDate});
+
 			if (this.model.isNew()){
 				this.collection.create(this.model, {wait: true, success: this.close});
 			}else {
