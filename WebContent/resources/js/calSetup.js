@@ -46,6 +46,12 @@ $(function(){
 				                                        	day:      'Dag'
 				                                        },
 				                                        weekNumberTitle:"V",
+				                                        allDayDefault:false,
+				                                        viewDisplay: function(view){
+				                                        	if(view.name == 'month'){
+				                                        		$(this.el).fullCalendar('refetchEvents');
+				                                        	}
+				                                        },
 				                                        selectable: true,
 				                                        selectHelper: true,
 				                                        editable: true,
@@ -88,13 +94,46 @@ $(function(){
 	var EventView = Backbone.View.extend({
 		el: $('#eventDialog'),
 		initialize: function() {
+
+			$("#allDay").click(function() {
+				if($(this).is(":checked"))
+				{
+					$('#from').attr('disabled',true);
+					$('#to').attr('disabled',true);
+				}else{
+					$('#from').attr('disabled',false);
+					$('#to').attr('disabled',false);
+				}
+			});
+
 			_.bindAll(this);
 		},
 		render: function(){
+
+			if (this.model.isNew()){
+				this.$('#allDay').attr('checked',false);
+			}else{
+
+				if(this.$('#allDay').is(':checked')){
+					this.$('#from').attr('disabled',true);
+					this.$('#to').attr('disabled',true);
+				}else{
+					this.$('#from').attr('disabled',false);
+					this.$('#to').attr('disabled',false);
+				}
+			}
+			
 			var buttons = {'Ok': this.save};
 			if(!this.model.isNew()){
 				_.extend(buttons, {'Delete':this.destroy});
-			}
+				var startDate = $.fullCalendar.parseDate(this.model.get('start'));
+				var endDate = $.fullCalendar.parseDate(this.model.get('end'));
+				
+				this.$('#from').val(
+						$.fullCalendar.formatDate(startDate,'HH:mm'));
+				this.$('#to').val(
+						$.fullCalendar.formatDate(endDate,'HH:mm'));
+				}
 			_.extend(buttons, {'Cancel':this.close});
 			$(this.el).dialog({
 				modal: true,
@@ -108,6 +147,11 @@ $(function(){
 			this.$('#title').val(this.model.get('title'));
 		},
 		save: function(){
+			if(this.$('#allDay').is(':checked')){
+				this.model.set({'allDay':true});
+			}else{
+				this.model.set({'allDay':false});
+			}
 			this.model.set({'title':this.$('#title').val()});
 			if (this.model.isNew()){
 				this.collection.create(this.model, {wait: true, success: this.close});
@@ -116,7 +160,6 @@ $(function(){
 			}
 		},
 		close: function(){
-			console.log('Closing');
 			$(this.el).dialog('close');
 		},
 		destroy: function(){
@@ -124,8 +167,6 @@ $(function(){
 		}
 	});
 
-	
-	
 	var events = new Events();
 	new EventsView({el: $("#calendar"),collection: events}).render();
 	events.fetch();

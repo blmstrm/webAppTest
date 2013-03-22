@@ -9,18 +9,18 @@
 	<div id='eventDialog' class='dialog ui-helper-hidden'>
 		<form>
 			<div>
-					<label>Title:</label>
+					<label>Titel:</label>
 					<input id='title' class="field" type="text"></input>
 			</div>
 			<div>
-					<label>From:</label>
+					<label>Starttid:</label>
 					<input id='from' class="field" type="text"></input>
 			</div>
 			<div>
-					<label>To:</label>
+					<label>Sluttid:</label>
 					<input id='to' class="field" type="text"></input>
 			</div>
-			<label><input type="checkbox" id="allDay" />Allday?</label>
+			<label><input type="checkbox" id="allDay" />Heldag</label>
 		</form>
 	</div>
 	
