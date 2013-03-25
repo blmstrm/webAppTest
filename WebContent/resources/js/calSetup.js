@@ -73,7 +73,7 @@ $(function(){
 			this.eventView.collection = this.collection;
 			this.eventView.model = new Event({start: startDate,end:endDate,editable:true});
 			this.eventView.render();
-		},
+		}, 
 		eventClick: function(fcEvent){
 			this.eventView.model = this.collection.get(fcEvent.id);
 			this.eventView.render();
@@ -161,18 +161,22 @@ $(function(){
 			var sDate = new Date(this.model.get('start'));
 			var eDate = new Date(this.model.get('end'));
 
-			var splitStart = this.$('#from').val().split(':');
-			var splitEnd = this.$('#to').val().split(':');
-
-			sDate.setHours(splitStart[0],splitStart[1]);
-			eDate.setHours(splitEnd[0],splitEnd[1]);
-
-			this.model.set({'start':sDate});
-			this.model.set({'end':eDate});
+			if(!(this.$('#from').val().length == 0)){
+				var splitStart = this.$('#from').val().split(':');
+				sDate.setHours(splitStart[0],splitStart[1]);
+				this.model.set({'start':sDate});
+			}
+			
+			if(!(this.$('#to').val() == 0)){
+				var splitEnd = this.$('#to').val().split(':');
+				eDate.setHours(splitEnd[0],splitEnd[1]);
+				this.model.set({'end':eDate});
+			}
 
 			if (this.model.isNew()){
 				this.collection.create(this.model, {wait: true, success: this.close});
 			}else {
+				console.log(this.model);
 				this.model.save({}, {success: this.close});
 			}
 		},
