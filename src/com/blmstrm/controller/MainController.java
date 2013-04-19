@@ -50,7 +50,6 @@ public class MainController{
 	@RequestMapping(value="/events/{id}",  method = RequestMethod.PUT)
 	@ResponseBody
 	public MyEvent updateEvent(@PathVariable String id, @RequestBody MyEvent updatedEvent){
-		System.out.println(id);
 		eventRepository.updateEvent(updatedEvent);
 		return updatedEvent;
 	}
