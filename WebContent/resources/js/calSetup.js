@@ -4,6 +4,7 @@ $(function(){
 	var Events = Backbone.Collection.extend({
 		model: Event,
 		url:'events'
+
 	});
 
 	var EventsView = Backbone.View.extend({
@@ -11,7 +12,7 @@ $(function(){
 			_.bindAll(this);
 
 			this.collection.bind('reset',this.addAll);
-			this.collection.bind('add',this.addOne);
+			this.collection.bind('add',this.addOne); 
 			this.collection.bind('change',this.change);
 			this.collection.bind('destroy',this.destroy);
 
@@ -27,6 +28,7 @@ $(function(){
 				axisFormat: 'H:mm{ - H:mm}',
 				timeFormat: 'H(:mm)',
 				firstDay:1,
+				ignoreTimezone: false,
 				weekNumbers:true,
 				dayNames: ['Söndag', 'Måndag', 'Tisdag', 'Onsdag',
 				           'Torsdag', 'Fredag', 'Lördag'],
@@ -55,7 +57,6 @@ $(function(){
 				                                        selectable: true,
 				                                        selectHelper: true,
 				                                        editable: true,
-				                                        ignoreTimezone: false,
 				                                        select: this.select,
 				                                        eventClick: this.eventClick,
 				                                        eventDrop: this.eventDropOrResize,
@@ -128,7 +129,8 @@ $(function(){
 				_.extend(buttons, {'Delete':this.destroy});
 				var startDate = $.fullCalendar.parseDate(this.model.get('start'));
 				var endDate = $.fullCalendar.parseDate(this.model.get('end'));
-
+				console.log("The start date of the event you just clicked:"+startDate);
+				console.log("The end date of the event you just cliked:"+endDate);
 				this.$('#from').val(
 						$.fullCalendar.formatDate(startDate,'HH:mm'));
 				this.$('#to').val(
@@ -158,22 +160,29 @@ $(function(){
 			}
 			this.model.set({'title':this.$('#title').val()});
 
-			var sDate = new Date(this.model.get('start'));
-			var eDate = new Date(this.model.get('end'));
+			console.log("This is the start date before it is sent away:" +this.model.get('start'));
+			console.log("This is the start date before it is sent away:" +this.model.get('end'));
+			
+			
+			var sDate = $.fullCalendar.parseDate(this.model.get('start'));
+			var eDate = $.fullCalendar.parseDate(this.model.get('end'));
 
 			if(!(this.$('#from').val().length == 0)){
 				var splitStart = this.$('#from').val().split(':');
 				sDate.setHours(splitStart[0],splitStart[1]);
-				this.model.set({'start':sDate});
+				console.log('Adding new event with starttime: '+sDate);
+				this.model.set({'start':$.fullCalendar.formatDate(sDate,'u')});
 			}
-			
+
 			if(!(this.$('#to').val() == 0)){
 				var splitEnd = this.$('#to').val().split(':');
 				eDate.setHours(splitEnd[0],splitEnd[1]);
-				this.model.set({'end':eDate});
+				console.log('Adding new event with endtime: '+eDate);
+				this.model.set({'end':$.fullCalendar.formatDate(eDate,'u')});
 			}
 
 			if (this.model.isNew()){
+				console.log('Saving this model'+this.model);
 				this.collection.create(this.model, {wait: true, success: this.close});
 			}else {
 				console.log(this.model);
@@ -188,7 +197,7 @@ $(function(){
 		}
 	});
 
-	var events = new Events();
+	var events =  new Events();
 	new EventsView({el: $("#calendar"),collection: events}).render();
 	events.fetch();
 });

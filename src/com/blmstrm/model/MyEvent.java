@@ -81,4 +81,12 @@ public final class MyEvent {
 		this.url = url;
 	}
 		
+	@Override
+	public String toString(){
+		return this.title+"\n"+
+				this.start+"\n"+
+				this.end;
+		
+	}
+	
 }

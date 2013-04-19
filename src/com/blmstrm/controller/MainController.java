@@ -1,5 +1,10 @@
 package com.blmstrm.controller;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 
@@ -15,13 +20,17 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.blmstrm.db.MyEventRepository;
 import com.blmstrm.model.MyEvent;
-import com.mongodb.util.JSON;
+
+import javax.xml.bind.*;
 
 @Controller
 public class MainController{
 
 	@Autowired
 	MyEventRepository eventRepository;
+
+
+	private static Calendar  myCal = Calendar.getInstance();
 
 	/*Return calendar view*/
 	@RequestMapping(value="/",  method = RequestMethod.GET)
@@ -41,6 +50,7 @@ public class MainController{
 	@RequestMapping(value="/events/{id}",  method = RequestMethod.PUT)
 	@ResponseBody
 	public MyEvent updateEvent(@PathVariable String id, @RequestBody MyEvent updatedEvent){
+		System.out.println(id);
 		eventRepository.updateEvent(updatedEvent);
 		return updatedEvent;
 	}
