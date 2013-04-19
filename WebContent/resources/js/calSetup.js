@@ -72,7 +72,7 @@ $(function(){
 		},
 		select: function(startDate,endDate){
 			this.eventView.collection = this.collection;
-			this.eventView.model = new Event({start: startDate,end:endDate,editable:true});
+			this.eventView.model = new Event({start: $.fullCalendar.formatDate(startDate,'u'),end:$.fullCalendar.formatDate(endDate,'u'),editable:true});
 			this.eventView.render();
 		}, 
 		eventClick: function(fcEvent){
@@ -82,6 +82,8 @@ $(function(){
 		change: function(event){
 			var fcEvent = $(this.el).fullCalendar('clientEvents',event.get('id'))[0];
 			fcEvent.title = event.get('title');
+			fcEvent.start = event.get('start');
+			fcEvent.end = event.get('end');
 			$(this.el).fullCalendar('updateEvent',fcEvent);
 		},
 		eventDropOrResize: function(fcEvent){
@@ -129,8 +131,7 @@ $(function(){
 				_.extend(buttons, {'Delete':this.destroy});
 				var startDate = $.fullCalendar.parseDate(this.model.get('start'));
 				var endDate = $.fullCalendar.parseDate(this.model.get('end'));
-				console.log("The start date of the event you just clicked:"+startDate);
-				console.log("The end date of the event you just cliked:"+endDate);
+				
 				this.$('#from').val(
 						$.fullCalendar.formatDate(startDate,'HH:mm'));
 				this.$('#to').val(
@@ -159,33 +160,25 @@ $(function(){
 				this.model.set({'allDay':false});
 			}
 			this.model.set({'title':this.$('#title').val()});
-
-			console.log("This is the start date before it is sent away:" +this.model.get('start'));
-			console.log("This is the start date before it is sent away:" +this.model.get('end'));
-			
-			
+		
 			var sDate = $.fullCalendar.parseDate(this.model.get('start'));
 			var eDate = $.fullCalendar.parseDate(this.model.get('end'));
 
 			if(!(this.$('#from').val().length == 0)){
 				var splitStart = this.$('#from').val().split(':');
 				sDate.setHours(splitStart[0],splitStart[1]);
-				console.log('Adding new event with starttime: '+sDate);
 				this.model.set({'start':$.fullCalendar.formatDate(sDate,'u')});
 			}
 
 			if(!(this.$('#to').val() == 0)){
 				var splitEnd = this.$('#to').val().split(':');
 				eDate.setHours(splitEnd[0],splitEnd[1]);
-				console.log('Adding new event with endtime: '+eDate);
 				this.model.set({'end':$.fullCalendar.formatDate(eDate,'u')});
 			}
 
 			if (this.model.isNew()){
-				console.log('Saving this model'+this.model);
 				this.collection.create(this.model, {wait: true, success: this.close});
 			}else {
-				console.log(this.model);
 				this.model.save({}, {success: this.close});
 			}
 		},

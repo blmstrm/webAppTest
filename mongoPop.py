@@ -10,7 +10,7 @@ MONGO_HOST = "localhost"
 MONGO_PORT = 27017
 
 #Data configuration
-NR_OF_ENTRIES = 200
+NR_OF_ENTRIES = 1
 MEETING_COUNTER = 0
 THIS_MOMENT = datetime.datetime.now()
 EVENT_ID = 0
