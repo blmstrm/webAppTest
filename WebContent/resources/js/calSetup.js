@@ -4,7 +4,6 @@ $(function(){
 	var Events = Backbone.Collection.extend({
 		model: Event,
 		url:'events'
-
 	});
 
 	var EventsView = Backbone.View.extend({
@@ -50,9 +49,7 @@ $(function(){
 				                                        weekNumberTitle:"V",
 				                                        allDayDefault:false,
 				                                        viewDisplay: function(view){
-				                                        	if(view.name == 'month'){
-				                                        		$(this.el).fullCalendar('refetchEvents');
-				                                        	}
+				                                        	$(this.el).fullCalendar('refetchEvents');
 				                                        },
 				                                        selectable: true,
 				                                        selectHelper: true,
@@ -72,7 +69,7 @@ $(function(){
 		},
 		select: function(startDate,endDate){
 			this.eventView.collection = this.collection;
-			this.eventView.model = new Event({start: $.fullCalendar.formatDate(startDate,'u'),end:$.fullCalendar.formatDate(endDate,'u'),editable:true});
+			this.eventView.model = new Event({start: startDate,end:endDate,editable:true});
 			this.eventView.render();
 		}, 
 		eventClick: function(fcEvent){
@@ -83,7 +80,7 @@ $(function(){
 			var fcEvent = $(this.el).fullCalendar('clientEvents',event.get('id'))[0];
 			fcEvent.title = event.get('title');
 			fcEvent.start = event.get('start');
-			fcEvent.end = event.get('end');
+			fcEvent.end =  event.get('end');
 			$(this.el).fullCalendar('updateEvent',fcEvent);
 		},
 		eventDropOrResize: function(fcEvent){
@@ -127,11 +124,21 @@ $(function(){
 			}
 
 			var buttons = {'Ok': this.save};
+
 			if(!this.model.isNew()){
+				/*Parse event date to show in dialog box.*/
 				_.extend(buttons, {'Delete':this.destroy});
 				var startDate = $.fullCalendar.parseDate(this.model.get('start'));
 				var endDate = $.fullCalendar.parseDate(this.model.get('end'));
-				
+
+				/*Adjust time to timezone*/
+				var offset = (new Date()).getTimezoneOffset();
+				var sTime = startDate.getTime();
+				var eTime = endDate.getTime();
+
+				startDate = new Date(sTime-(offset*60000));
+				endDate = new Date(eTime-(offset*60000));
+
 				this.$('#from').val(
 						$.fullCalendar.formatDate(startDate,'HH:mm'));
 				this.$('#to').val(
@@ -154,32 +161,37 @@ $(function(){
 			this.$('#title').val(this.model.get('title'));
 		},
 		save: function(){
+		
 			if(this.$('#allDay').is(':checked')){
 				this.model.set({'allDay':true});
 			}else{
 				this.model.set({'allDay':false});
 			}
 			this.model.set({'title':this.$('#title').val()});
-		
+			
+			/*Convert from string to date to be able to change*/
 			var sDate = $.fullCalendar.parseDate(this.model.get('start'));
 			var eDate = $.fullCalendar.parseDate(this.model.get('end'));
 
+			/*If you have from value*/
 			if(!(this.$('#from').val().length == 0)){
 				var splitStart = this.$('#from').val().split(':');
 				sDate.setHours(splitStart[0],splitStart[1]);
-				this.model.set({'start':$.fullCalendar.formatDate(sDate,'u')});
+				this.model.set({'start':sDate});
 			}
 
+			/*If you have to value*/
 			if(!(this.$('#to').val() == 0)){
 				var splitEnd = this.$('#to').val().split(':');
 				eDate.setHours(splitEnd[0],splitEnd[1]);
-				this.model.set({'end':$.fullCalendar.formatDate(eDate,'u')});
+				this.model.set({'end':eDate});
+
 			}
 
 			if (this.model.isNew()){
 				this.collection.create(this.model, {wait: true, success: this.close});
 			}else {
-				this.model.save({}, {success: this.close});
+				this.model.save({}, {wait: true, success:  this.close});
 			}
 		},
 		close: function(){
@@ -187,10 +199,11 @@ $(function(){
 		},
 		destroy: function(){
 			this.model.destroy({success: this.close});
-		}
+		}		
 	});
 
 	var events =  new Events();
 	new EventsView({el: $("#calendar"),collection: events}).render();
 	events.fetch();
+
 });
