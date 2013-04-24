@@ -58,6 +58,7 @@ $(function(){
 				                                        eventClick: this.eventClick,
 				                                        eventDrop: this.eventDropOrResize,
 				                                        eventResize: this.eventDropOrResize
+				                                        
 
 			});
 		},
@@ -110,6 +111,8 @@ $(function(){
 		},
 		render: function(){
 
+			
+			
 			if (this.model.isNew()){
 				this.$('#allDay').attr('checked',false);
 			}else{
@@ -158,6 +161,8 @@ $(function(){
 			return this;
 		},
 		open: function(){
+			$('.datepicker').timepicker();
+			$('.datepicker').timepicker();
 			this.$('#title').val(this.model.get('title'));
 		},
 		save: function(){
@@ -200,6 +205,11 @@ $(function(){
 		destroy: function(){
 			this.model.destroy({success: this.close});
 		}		
+	});
+	$(function(){
+		
+		console.log('Infun');
+		
 	});
 
 	var events =  new Events();

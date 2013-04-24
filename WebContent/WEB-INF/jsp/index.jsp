@@ -8,17 +8,21 @@
 	<div id='calendar'></div>
 	<div id='eventDialog' class='dialog ui-helper-hidden'>
 		<form>
+		<div>
+					<label>ID:</label>
+					<input id='title' class="field" type="text" size="15"></input>
+			</div>
 			<div>
 					<label>Titel:</label>
-					<input id='title' class="field" type="text"></input>
+					<input id='title' class="field" type="text" size="15"></input>
 			</div>
 			<div>
-					<label>Starttid:</label>
-					<input id='from' class="field" type="text"></input>
+					<label>Start:</label>
+					<input class="datepicker" type="text" id="from" size="15"></input>
 			</div>
 			<div>
-					<label>Sluttid:</label>
-					<input id='to' class="field" type="text"></input>
+					<label>Slut:</label>
+					<input class="datepicker" type="text" id="to" size="15"></input>
 			</div>
 			<label><input type="checkbox" id="allDay" />Heldag</label>
 		</form>

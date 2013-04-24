@@ -13,7 +13,16 @@ body {
 }
 
 .dialog .field {
-	width:170px;	
+	
+	float
+}
+
+input{
+	clear:left;
+}
+
+label{
+	clear:left;
 }
 
 #calendar {
